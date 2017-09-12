@@ -1,0 +1,32 @@
+<div ng-include ="'views/nav.html'">
+</div>
+
+ <div class="container-fluid">
+      <div class="row">
+	        <div class="col-sm-3 col-md-2 sidebar">
+		          <ul class="nav nav-sidebar-module-inset">
+			         
+			             <li><a href="#/profile">profile</a></li>
+                        <li><a href="#/blog">blog</a></li>
+                        <li><a href="#/map">map</a></li>
+			            
+		          </ul>
+		          
+	         </div>
+	           <div class="col-sm-8 col-md-9">
+	         	 <div class="col-sm-8">
+					<div ng-controller="allNotif">
+							<div class="alert alert-info" ng-repeat="notif in allNotif track by $index">
+								<button ng-click="removeNotif(notif._id)" type="button" class="close"> 
+								<i class="glyphicon glyphicon-remove-circle text-info"></i>
+								</button>
+								<h4> Notif alert</h4>
+								<p> {{notif.idUserComm.username}} a a commenté votre Poste {{notif.idPoste.name}}
+								 <a class="alett-link" ng-controller="notCtrl" ng-click="notifLu(notif)"> Click Here </a>to Read </p>
+							</div>
+						</div>
+		         </div>
+	         </div> 
+	     </div>
+  </div>
+

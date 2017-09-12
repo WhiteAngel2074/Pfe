@@ -1,0 +1,66 @@
+<div ng-include ="'views/nav.html'">
+</div>
+<div class="container-fluid"> 
+   <div class="row"> 
+              <div class="col-md-2 sidebar">
+              <ul class="nav nav-sidebar-module-inset">
+               
+                  <li><a href="#/blog">blog</a></li>
+                   <li><a href="#/map">map</a></li>
+                   <li><a href="#/chat">chat</a></li>
+                   <li><a href="#/declaration">declaration</a></li>
+                      
+              </ul>     
+           </div>
+           <div class="col-md-4" ng-controller="LineCtrl">
+           <label>par ville :</label>
+        <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series">
+        </canvas> 
+             </div>
+
+     <div class="col-md-4" ng-controller="LineCtrl1">
+     <label>par date :</label>
+        <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series">
+          </canvas> 
+     </div>
+       <div class="col-md-2" ng-controller="PieCtrl">
+          <canvas id="pie" class="chart chart-pie"
+          chart-data="data" chart-labels="labels" chart-options="options">
+         </canvas> 
+     </div>
+     <div class="container" ng-controller="searchCtrl">
+       <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ville</th>
+                  <th>type de crime</th>
+                  <th>nombre de declaration</th> 
+                </tr>
+              </thead>
+              <tbody>
+                  <tr ng-repeat="city in citys | filter:city">
+              <td>{{city._id.city}}</td>
+              <td>{{city._id.type.name}}</td>
+              <td>{{city.count}}</td>
+                </tr>
+              
+              </tbody>
+            </table>
+   
+            
+          </div>
+    
+     <div >
+     <div class="row">
+   <br/>
+     
+   
+     
+     
+      
+     </div>
+     
+     </div>
+ 
+</div>
+</div>

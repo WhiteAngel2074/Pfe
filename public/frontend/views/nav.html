@@ -1,0 +1,179 @@
+<nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+          </button>
+          <a class="navbar-brand" href="#">be safe</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li ><a href="#/">Home</a></li>
+          </ul>
+          <div ng-hide="token">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/signup">
+            <span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="#/login">
+            <span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
+          </div>
+          <div ng-show="token">
+          <ul class="nav navbar-nav navbar-right">
+          <li>
+          <a href="#/pushNotification">
+            <span class="glyphicon glyphicon-comment"></span> add declaration</a></li>
+          <li><a href="#/dashboard">
+            <span class="glyphicon glyphicon-user"></span> dashboard</a></li>
+            <li><a href="#/profile">
+            <span class="glyphicon glyphicon-log-in"></span> profile</a></li>
+            <li><a href ng-controller="logCtrl" ng-click="logout()">
+            <span class="glyphicon glyphicon-user"></span> logout</a></li>
+
+            <li>
+              <div class="dropdown" ng-controller="notCtrl">
+                <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+                  <i class="glyphicon glyphicon-bell"> Notification</i>
+                </a>
+                <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+                  <div class="notification-heading">
+                  <h4 class="menu-title">Notifications</h4>
+                  <h4 class="menu-title pull-right"><a href="#/allNotif"> View all</a>
+                  <i class="glyphicon glyphicon-circle-arrow-right"></i>
+                  </h4>
+                  </div>
+                  <li class="divider"></li>
+                 <div class="notifications-wrapper" ng-repeat="notif in allNotif track by $index ">
+                   <a class="content" ng-click="notifLu(notif)">
+                     <div class="notification-item">
+                      <h4 class="item-title">{{notif.idUserComm.username}}</h4>
+                      <p class="item-info">a commenté votre Poste <h4 class="item-title">{{notif.idPoste.name}}</h4></p>
+                    </div> 
+                  </a>
+                  </div>
+                  <li class="divider"></li>
+                  <div class="notification-footer"><h4 class="menu-title">
+                  <a href="#/allNotif">View all </a><i class="glyphicon glyphicon-circle-arrow-right"></i></h4>
+                  </div>
+                </ul>
+              </div>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-right">
+          <div class="dropdown" >
+                <a id="dLabel" role="button" data-toggle="dropdown">
+                  <input type="text" ng-model="search" class="form-control" placeholder="Search..."  my-enter="search()"> 
+                </a>
+                <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel" >
+                  <div class="notification-heading">
+                  <h4 class="menu-title">Search</h4>
+                  <h4 class="menu-title pull-right">
+                  <a href="#/allNotif"> View all</a>
+                  <i class="glyphicon glyphicon-circle-arrow-right"></i>
+                  </h4>
+                  </div>
+                   <div  >
+                   <li class="divider"></li>
+                   <div  ng-hide="saerchUser">
+                   <center>
+                     <img ng-src="/uploads/giphy.gif" idth="100px" height="100px" class="img-avatar" alt="user profile image" >
+                     </center>
+                   </div>
+                   <div class="notifications-wrapper" ng-show="user" ng-repeat="user in saerchUser track by $index">
+                   <a ng-click="getProfil(user._id)" class="content">
+                     <div  class="notification-item">
+                       <img ng-src="/uploads/{{user._id}}/{{user.photo}}" width="100px" height="100px" class="img-avatar" alt="user profile image"> 
+                        name: {{user.name}}
+                        email :{{user.email}}
+                    </div> 
+                  </a>
+                  </div>
+               </div>
+                  </ul>
+              </div>
+             </form>
+          
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
+
+    <style type="text/css">
+  
+  .add-project {
+    background: #5584ff none repeat scroll 0 0;
+    border-radius: 100px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 27px 10px 45px;
+    position: relative;
+}
+
+.dropdown {
+    display:inline-block;
+    margin-left:20px;
+    padding:10px;
+  }
+
+
+.glyphicon-bell {
+   
+    font-size:1.5rem;
+  }
+
+.notifications {
+   min-width:420px; 
+  }
+  
+  .notifications-wrapper {
+     overflow:auto;
+      max-height:250px;
+    }
+    
+ .menu-title {
+     color:#ff7788;
+     font-size:1.5rem;
+      display:inline-block;
+      }
+ 
+.glyphicon-circle-arrow-right {
+      margin-left:10px;     
+   }
+  
+   
+ .notification-heading, .notification-footer  {
+  padding:2px 10px;
+       }
+      
+        
+.dropdown-menu.divider {
+  margin:5px 0;          
+  }
+
+.item-title {
+  
+ font-size:1.3rem;
+ color:#000;
+    
+}
+
+.notifications a.content {
+ text-decoration:none;
+ background:#ccc;
+
+ }
+    
+.notification-item {
+ padding:10px;
+ margin:5px;
+ background:#ccc;
+ border-radius:4px;
+ }
+
+
+  </style>

@@ -1,0 +1,48 @@
+<div ng-include ="'views/nav.html'">
+</div>
+
+
+<div class="container-fluid" ng-controller="profileCtrl">
+      <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar"  >
+                  <ul class="nav nav-sidebar-module-inset">
+                       <li><a href="#/blog">blog</a></li>
+                        <li><a href="#/map">map</a></li>
+                  </ul>
+                  <ul class="nav nav-sidebar-module-inset">
+                    <li><a href="#/chat">chat</a></li>
+                    </ul>
+             </div>
+             <div class="col-sm-3">
+               
+             </div>
+
+              <div class="col-sm-8">
+<div ng-controller="exampleForm">
+        <form class="notification-form ng-valid ng-scope ng-dirty ng-valid-parse" ng-submit="submitForm()"  >
+            <div class="form-group">
+                <label for="title">Type de crime</label>
+                <select class="form-control" ng-model="selectedTestAccount" 
+            ng-options="item.name for item in testAccounts"  ng-click="sendID(selectedTestAccount)">
+            <option value="">Select Type de crime</option>
+                         </select>
+            </div>
+            <div class="form-group">
+                <label for="message">Text</label>
+                <textarea class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" rows="3" id="message" placeholder="Notification Text" ng-model="notification.text">
+                </textarea>
+            </div>
+           
+                <div class="form-group">
+                <label for="icon">localisation</label>
+                <input class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" rows="3" id="icon" placeholder="Notification Icon" ng-model="notification.localisation">
+                
+            </div>
+            
+            
+            <button type="submit" class="show-button btn btn-primary ng-isolate-scope" notification-title="title" notification-text="text" notification-icon="icon">Show Notification</button>
+        </form>
+    </div>
+
+
+   <link href="example/example.css" rel="stylesheet">

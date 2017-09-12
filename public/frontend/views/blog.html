@@ -1,0 +1,278 @@
+<div ng-include ="'views/nav.html'">
+</div>
+ <div class="container-fluid">
+      <div class="row">
+	        <div class="col-sm-3 col-md-2 sidebar">
+		          <ul class="nav nav-sidebar-module-inset">
+			         
+			            <li><a href="#/blog">blog</a></li>
+			            <li><a href="#/map">map</a></li>
+			            
+		          </ul>
+		          <ul class="nav nav-sidebar-module-inset">
+		            <li><a href="#/declaration">declaration</a></li>
+		            <li><a href="#/chat">chat</a></li>
+		           
+
+		          </ul>
+	         </div>
+              <div class="col-sm-8" ng-controller="blogCtrl">
+               
+                     <div class="panel panel-white post panel-shadow">
+			         	   <div class="post-heading" >
+			         	       <div class="pull-left image">
+				         	 	  <img ng-src="/uploads/{{currentUser.id}}/{{currentUser.photo}}" width="150px" height="150px" class="img-circle avatar" alt="user profile image"> 
+				         	   </div> 
+				         	   <div class="pull-left meta">
+					         	   <div class="input-group">
+										  <input data-toggle="modal" data-target="#myModal" class="form-control" placeholder="add a Poste" type="text">
+							         	  <span class="input-group-addon">
+							         	 		 <a data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-share-alt"></i></a>
+							         	  </span>
+					         	   </div>
+					         	              <!-- Modal -->
+										<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+											  <div class="modal-dialog" role="document">
+											    <div class="modal-content">
+											      <div class="modal-header">
+											        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											        <h4 class="modal-title" id="myModalLabel">ajouter une poste</h4>
+											      </div>
+											      <form >
+											      <div class="modal-body">
+											          <div class="form-group">
+											          <label >Type:</label>
+											           
+											            <select 
+											            ng-init="somethingHere"
+											            ng-model="poste.name"
+											            ng-options="x for x in types" 
+											            class="form-control">
+                                                             </select>
+											        </div>
+											         <div class="form-group">
+											          <label >description:</label>
+											           <textarea class="form-control" rows="3" ng-model="poste.description">
+											           </textarea>
+
+											        </div>
+											        <div class="modal-body">
+											          <div class="form-group">
+											          <label>
+											          <span class="glyphicon glyphicon-map-marker" aria-hidden="true" >
+											          </span> localisation:</label>
+											           <input type="text" class="form-control" ng-model="poste.localisation">
+
+											        </div>
+											      </div>
+											      </form>
+											      <div class="modal-footer">
+											        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											        <button type="button" ng-click="posteForm(currentUser.id)"  data-dismiss="modal" class="btn btn-primary" >publier</button>
+											      </div>
+											    </div>
+											  </div>
+										  </div>
+					         	   </div>
+                           </div> 
+                      </div>    
+              </div>
+
+	         <div class="col-sm-8 col-md-9">
+	         	 <div class="container" ng-controller="blogCtrl">
+	         	  <div class="col-sm-8" ng-repeat="poste in allPoste track   by $index |limitTo:3">
+		         	  <div class="panel panel-white post panel-shadow">
+			         	   <div class="post-heading" >
+			         	      <div class="navbar-right">
+			         	      	
+			         	      	<ul class="nav navbar-nav">
+							        <li class="dropdown">
+							          <a class="dropdown-toggle" data-toggle="dropdown">
+							          <span class="caret"></span></a>
+							          <ul class="dropdown-menu">
+							            <li><a href ng-click="remove(poste._id)">Supprimer</a></li>
+							            <li><a href ng-click="Modifier(poste._id)">Modifier</a></li>
+							          </ul>
+							          </li>
+							          </ul>
+			         	      </div>
+				         	   <div class="pull-left image">
+				         	 	  <img ng-src="/uploads/{{poste.idUser._id}}/{{poste.idUser.photo}}" width="150px" height="150px" class="img-circle avatar" alt="user profile image">
+				         	   </div> 
+				         	   <div class="pull-left meta">
+					         	   <div class="title h5">
+						         	   <a href="#/ProfileUser/{{poste.idUser._id}}"><b>By {{poste.idUser.name}}</b></a><br>
+						         	   {{poste.name}}.
+					         	   </div>
+					         	   <h6 class="text-muted time">{{poste.date}}
+					         	     <span class="glyphicon glyphicon-map-marker">{{poste.localisation.city}}
+					         	      </span>
+					         	    </h6>
+					         	     
+				         	   </div>
+			         	   </div>
+		         	   		<div class="post-description">
+		         	   			<p>{{poste.description}}</p>
+				         	   <div class="stat">
+						         	   <a href="#" class="btn btn-default stat-item">
+						         	    <i class="glyphicon glyphicon-comment"></i>{{poste.commmentaire.length}} comment.
+						         	   </a>
+						         	   <a href="#" class="btn btn-default stat-item">
+						         	   <i class="fa fa-share icon"></i>2
+						         	   </a>
+				         	    </div>
+		         	   		</div>
+		         	  
+		         	    <div class="post-footer" ng-controller="blogCtrl">
+				         	  <div class="input-group" >
+					         	  <input class="form-control" placeholder="add a comment" type="text" ng-model="newComment">
+					         	  <span class="input-group-addon">
+					         	  <a href ng-click="addComm(poste._id)"><i class="glyphicon glyphicon-share-alt"></i></a>
+					         	  </span>
+				         	  </div >
+				         	  <div ng-repeat="p in poste.commmentaire track by $index">
+							         	  <ul class="comments-list">
+								         	  <li class="comment">
+										         	  <a class="pull-left" href="">
+										         	  <img ng-src="/uploads/{{p.idUserCom._id}}/{{p.idUserCom.photo}}" class="avatar" alt="avatar">
+										         	  </a>
+										         	  <div class="comment-body">
+										         	      <div class="navbar-right">
+						         	      	
+											         	      	<ul class="nav navbar-nav">
+															        <li class="dropdown">
+															          <a class="dropdown-toggle" data-toggle="dropdown">
+															          <span class="caret"></span></a>
+															          <ul class="dropdown-menu">
+															            <li><a href ng-click="removeCom(poste._id, p._id)">Supprimer</a></li>
+															            <li><a href ng-click="ModifierCom(p._id)">Modifier</a></li>
+															          </ul>
+															          </li>
+															          </ul>
+						         	                       </div>
+											         	  <div class="comment-heading">
+													         	  <h4 class="user">{{p.idUserCom.username}}</h4>
+													         	  <h5 class="time">{{p.date}} </h5>
+											         	  </div>
+
+										         	 		 <p>{{p.contexte}}
+										         	 		 </p>
+											         	 
+										         	  </div>
+										         	   
+								         	  </li>
+							         	  </ul>
+				         	  </div>
+		         	    </div>
+		         	 </div>
+	         	</div>
+	           </div> 
+	     </div>
+  </div>
+
+  <style type="text/css">
+  	
+  	.panel-shadow{
+	box-shadow:rgba(0,0,0,0.3)7px 7px 7px;
+}
+.panel-white{
+	border:1px solid#dddddd;
+}
+.panel-white .panel-heading{
+	color: #333;
+	background: #fff;
+	border-color: #ddd;
+}
+.panel-white .panel-footer{
+	background-color: #fff;
+	border-color: #ddd;
+}
+.post .post-heading{
+	height: 95px;
+	padding: 20px 15px;
+}
+.post .post-heading .avatar{
+	width: 60px;
+	height: 60px;
+	display: block;
+	margin-right: 15px;
+}
+.post .post-heading .meta .title{
+	margin-bottom: 0;
+}
+
+.post .post-heading .meta .title a{
+	color: black;
+}
+.post .post-heading .meta .title a:hover{
+	color: black;
+}
+.post .post-heading .meta .time{
+	margin-top: 8px;
+	color: #999;
+}
+.post .post-image .image{
+   width: 100%;
+   height: auto;
+}
+.post .post-description{
+	padding: 15px;
+}
+.post .post-description p{
+	font-size: 14px;
+}
+.post .post-description .stats{
+	margin-top: 20px;
+}
+.post .post-description .stats .stat-item{
+	display: inline-block;
+	margin-right: 15px;
+}
+.post .post-description .stats .stat-item .icon{
+	margin-right: 8px;
+}
+.post .post-footer{
+	border-top: 1px solid #ddd;
+	padding: 15px;
+}
+.post .post-footer .input-group-addon a{
+	color: #454545;
+}
+.post .post-footer .comments-list{
+	padding: 0;
+	margin-top: 20px;
+	list-style-type: none;
+}
+.post .post-footer .comments-list .comment{
+	display: block;
+	width: 100%;
+	margin-right: 20px 0;
+}
+.post .post-footer .comments-list .comment .avatar{
+	width: 35px;
+	height: 35px;
+}
+.post .post-footer .comments-list .comment .comment-heading{
+	display: block;
+	width: 100%;
+}
+.post .post-footer .comments-list .comment .comment-heading .user{
+	font-size: 14px;
+	font-weight: bold;
+	display: inline;
+	margin-top: 0;
+	margin-right: 10px;
+}
+.post .post-footer .comments-list .comment .comment-heading .time{
+	font-size: 12px;
+	color: #aaa;
+	margin-top: 0;
+	display: inline;
+}
+.post .post-footer .comments-list .comment .comment-body{
+	margin-left: 50px
+}
+.post .post-footer .comments-list.comment > .comment-list{
+	margin-left: 50px
+}
+</style>

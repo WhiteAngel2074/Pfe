@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script> 
+	<title>wajdi</title>
+</head>
+<body ng-app="postApp" ng-controller="postController">
+<form name="userForm" ng-submit="submitForm()">
+    
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" ng-model="user.username">
+        <span ng-show="errorUserName">{{errorUserName}}</span>
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" ng-model="user.password">
+        <span ng-show="errorEmail">{{errorEmail}}</span>
+    </div>
+    <button type="submit" >Submit</button>
+    </form>
+
+    
+</body>
+
+<script>
+   
+    var postApp = angular.module('postApp', []);
+    
+    postApp.controller('postController', function($scope, $http, $templateCache) {
+        $scope.user = {};
+        $scope.submitForm = function() {
+        	console.log($scope.user);
+        	// Data request
+            var method = 'POST';
+            var url = 'http://localhost:8080/users/login';
+            $http({
+              method: method,
+              url: url,
+              data: $scope.user,
+              headers: {'Content-Type': 'application/JSON'},
+              cache: $templateCache
+            }).
+            success(function(response) {
+              console.log(response.token);
+            }).
+            error(function(response) {
+                console.log(response);
+            });
+        }
+        
+    });
+</script>
+</html>

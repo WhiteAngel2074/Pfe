@@ -1,0 +1,232 @@
+ <div class="container-fluid display-table" ng-controller="blogCtrl">
+        <div class="row display-table-row">
+            <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
+               
+                <div class="navi">
+                    <ul>
+                        <li class="active"><a href="#/home"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
+                        <li><a href="#/blog"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">blog</span></a></li>
+                        <li><a href="#/user"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Users</span></a></li>
+                        <li><a href="#"><i class="fa fa-cog" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Setting</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-10 col-sm-11 display-table-cell v-align">
+                <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+                <div class="row">
+                    <header>
+                        <div class="col-md-7">
+                            <nav class="navbar-default pull-left">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="offcanvas" data-target="#side-menu" aria-expanded="false">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                            </nav>
+                            <div class="search hidden-xs hidden-sm">
+                                <input type="text" placeholder="Search" id="search">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="header-rightside">
+                                <ul class="list-inline header-top pull-right">
+                                    <li class="hidden-xs">
+                                    <a href="#" class="add-project" data-toggle="modal" data-target="#add_project">Add declaration</a>
+                                    </li>
+                                    <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li><a href ng-controller="logCtrl" ng-click="logout()">
+                                     <span class="glyphicon glyphicon-user"></span> logout</a></li>
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                    </header>
+                </div>
+                <div class="user-dashboard" ng-repeat="poste in allPoste track by $index">
+                    <div class="row">
+                        
+                        
+                                    <div class="panel panel-white post panel-shadow">
+                                        <div class="post-heading">
+                                        <div class="navbar-right">
+                                                <ul class="nav navbar-nav">
+                                                    <li class="dropdown">
+                                                      <a class="dropdown-toggle" data-toggle="dropdown">
+                                                      <span class="caret"></span></a>
+                                                      <ul class="dropdown-menu">
+                                                        <li><a href ng-click="remove(poste._id)">Supprimer</a></li>
+                                                        <li><a href ng-click="Modifier(poste._id)">Modifier</a></li>
+                                                      </ul>
+                                                      </li>
+                                                      </ul>
+                                              </div>
+                                            <div class="pull-left image">
+                                                <img ng-src="/uploads/{{poste.idUser._id}}/{{poste.idUser.photo}}" class="img-circle avatar" alt="user profile image">
+                                            </div>
+                                            <div class="pull-left meta">
+                                                <div class="title h5">
+                                                    <a href="#/ProfileUser/{{poste.idUser._id}}"><b>By {{poste.idUser.name}}</b></a>
+                                                    {{poste.name}}.
+                                                </div>
+                                                <h6 class="text-muted time">{{poste.date}}
+                                                <span class="glyphicon glyphicon-map-marker">{{poste.localisation.city}}
+                                                </span>
+                                                </h6>
+                                            </div>
+                                        </div> 
+                                        <div class="post-description"> 
+                                            <p>{{poste.description}}</p>
+                                            <div class="stats">
+                                                <a href="#" class="btn btn-default stat-item">
+                                                    <i class="glyphicon glyphicon-comment"></i>{{poste.commmentaire.length}} comment.
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="post-footer">
+                                            <div class="input-group"> 
+                                                <input class="form-control" placeholder="Add a comment" type="text">
+                                                <span class="input-group-addon">
+                                                    <a href="#"><i class="fa fa-edit"></i></a>  
+                                                </span>
+                                            </div>
+                                            <ul class="comments-list" ng-repeat="p in poste.commmentaire track by $index">
+                                                <li class="comment">
+                                                    <a class="pull-left" href="#">
+                                                        <img class="avatar" 
+                                                        ng-src="/uploads/{{p.idUserCom._id}}/{{p.idUserCom.photo}}" alt="avatar">
+                                                    </a>
+                                                    <div class="comment-body">
+                                                        <div class="comment-heading">
+                                                            <h4 class="user">{{p.idUserCom.username}}</h4>
+                                                            <h5 class="time">{{p.date}}</h5>
+                                                        </div>
+                                                        <p>{{p.contexte}}</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                       
+                        
+                   
+                </div>
+            </div>
+        </div>
+
+</div>
+
+
+
+   
+<style type="text/css">
+
+.panel-shadow {
+    box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
+}
+.panel-white {
+  border: 1px solid #dddddd;
+}
+.panel-white  .panel-heading {
+  color: #333;
+  background-color: #fff;
+  border-color: #ddd;
+}
+.panel-white  .panel-footer {
+  background-color: #fff;
+  border-color: #ddd;
+}
+
+.post .post-heading {
+  height: 95px;
+  padding: 20px 15px;
+}
+.post .post-heading .avatar {
+  width: 60px;
+  height: 60px;
+  display: block;
+  margin-right: 15px;
+}
+.post .post-heading .meta .title {
+  margin-bottom: 0;
+}
+.post .post-heading .meta .title a {
+  color: black;
+}
+.post .post-heading .meta .title a:hover {
+  color: #aaaaaa;
+}
+.post .post-heading .meta .time {
+  margin-top: 8px;
+  color: #999;
+}
+.post .post-image .image {
+  width: 100%;
+  height: auto;
+}
+.post .post-description {
+  padding: 15px;
+}
+.post .post-description p {
+  font-size: 14px;
+}
+.post .post-description .stats {
+  margin-top: 20px;
+}
+.post .post-description .stats .stat-item {
+  display: inline-block;
+  margin-right: 15px;
+}
+.post .post-description .stats .stat-item .icon {
+  margin-right: 8px;
+}
+.post .post-footer {
+  border-top: 1px solid #ddd;
+  padding: 15px;
+}
+.post .post-footer .input-group-addon a {
+  color: #454545;
+}
+.post .post-footer .comments-list {
+  padding: 0;
+  margin-top: 20px;
+  list-style-type: none;
+}
+.post .post-footer .comments-list .comment {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+}
+.post .post-footer .comments-list .comment .avatar {
+  width: 35px;
+  height: 35px;
+}
+.post .post-footer .comments-list .comment .comment-heading {
+  display: block;
+  width: 100%;
+}
+.post .post-footer .comments-list .comment .comment-heading .user {
+  font-size: 14px;
+  font-weight: bold;
+  display: inline;
+  margin-top: 0;
+  margin-right: 10px;
+}
+.post .post-footer .comments-list .comment .comment-heading .time {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 0;
+  display: inline;
+}
+.post .post-footer .comments-list .comment .comment-body {
+  margin-left: 50px;
+}
+.post .post-footer .comments-list .comment > .comments-list {
+  margin-left: 50px;
+}
+
+</style>

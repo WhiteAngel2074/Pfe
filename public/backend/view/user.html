@@ -1,0 +1,100 @@
+ <div class="container-fluid display-table" ng-controller="UserCtrl">
+        <div class="row display-table-row">
+            <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
+               
+                <div class="navi">
+                    <ul>
+                        <li class="active"><a href="#/home"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
+                        <li><a href="#/blog"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">blog</span></a></li>
+                        <li><a href="#/user"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Users</span></a></li>
+                        <li><a href="#/setting"><i class="fa fa-cog" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Setting</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-10 col-sm-11 display-table-cell v-align">
+                <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+                <div class="row">
+                    <header>
+                        <div class="col-md-7">
+                            <nav class="navbar-default pull-left">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="offcanvas" data-target="#side-menu" aria-expanded="false">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                            </nav>
+                            <div class="search hidden-xs hidden-sm">
+                                <input type="text" ng-model="query" placeholder="Search" id="search">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="header-rightside">
+                                <ul class="list-inline header-top pull-right">
+                                    <li class="hidden-xs">
+                                    <a href="#" class="add-project" data-toggle="modal" data-target="#add_project">Add declaration</a>
+                                    </li>
+                                    <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li><a href ng-controller="logCtrl" ng-click="logout()">
+                                     <span class="glyphicon glyphicon-user"></span> logout</a></li>
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                    </header>
+                </div>
+                <div class="user-dashboard" ng-repeat="u in Allusers 
+                 | filter:query">
+                   <div class="col-xs-12 col-sm-6 col-md-6">
+                     <div class="well well-sm">
+                        <div class="row">
+                                <div class="col-sm-6 col-md-4">
+                               
+                                <div ng-show="u.bloquer=='0'">
+                                       <button ng-click="bloquee(u._id)">bloquee</button>
+                                    </div>
+                                    <div ng-show="u.bloquer=='1'">
+                                     <button ng-click="debloquee(u._id)">débloquer</button>
+       
+                                    </div>
+                                      <img ng-src="/uploads/{{u._id}}/{{u.photo}}" alt="" class="img-rounded img-responsive" />
+                                
+                                </div>
+
+                                <div class="col-sm-6 col-md-8">
+                                        <h4>
+                                         <a href="#/ProfileUser/{{u._id}}">
+                                         {{u.name}}
+                                         </a>
+
+                                         </h4>
+                                        <small>
+                                        <cite title="San Francisco, USA"> <i class="glyphicon glyphicon-map-marker">
+                                        </i></cite>
+                                        </small>
+                                        <p>
+                                            <i class="glyphicon glyphicon-envelope"></i>{{u.email}}
+                                            <br />
+
+                                            <br />
+                                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+
+
+   

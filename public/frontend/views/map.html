@@ -1,0 +1,38 @@
+<div ng-include ="'views/nav.html'">
+</div>
+
+<div class="container-fluid"> 
+ <div class="row">
+          <div class="col-sm-3 col-md-2 sidebar"  >
+                  <ul class="nav nav-sidebar-module-inset">
+                      <li><a href="#/blog">blog</a></li>
+                      <li><a href="#/map">map</a></li>  
+                  </ul>
+                  <ul class="nav nav-sidebar-module-inset">
+                    <li><a href="#/chat">chat</a></li>
+                    <li><a href="#/declaration">declaration</a></li>
+                  </ul>
+            </div>
+             <div ng-app="mapsApp" ng-controller="MapCtrl">
+                 <input type="text" ng-model="search"/>
+                 <button class="btn" type="button" ng-click="geoCode()" 
+                     ng-disabled="search.length == 0" title="search" >
+                    &nbsp;<i class="icon-search"></i>Where is this place?
+                 </button>
+                  <button class="btn" type="button" ng-click="gotoCurrentLocation()" title="current location">
+                    &nbsp;<i class="icon-home"></i>Where am I now?
+                </button>
+               <div id="map"></div>
+                     
+             </div>
+      </div>
+</div>
+     
+          
+
+<style type="text/css">
+  #map {
+    height:420px;
+    width:600px;
+}
+</style>

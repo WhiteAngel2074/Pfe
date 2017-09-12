@@ -1,0 +1,288 @@
+<div ng-include ="'views/nav.html'">
+</div>
+
+
+<div class="container-fluid" ng-controller="profileCtrl">
+      <div class="row">
+	        <div class="col-sm-3 col-md-2 sidebar"  >
+		          <ul class="nav nav-sidebar-module-inset">
+			           <li><a href="#/blog">blog</a></li>
+			            <li><a href="#/map">map</a></li>
+		          </ul>
+		          <ul class="nav nav-sidebar-module-inset">
+		            <li><a href="#/chat">chat</a></li>
+		            </ul>
+	         </div>
+	         <div class="col-sm-3">
+               
+	         </div>
+
+	          <div class="col-sm-8">
+		          	<div class="col-xs-6 col-sm-3 placeholder fb-profile">
+		      			<img ng-src="/uploads/{{infoProfil._id}}/{{infoProfil.photo}}" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+		       			<form ng-submit="uploadsPhotoProfile()">
+		      			 	<label class="btn btn-success">browse
+		       		 	 	<input type="file" file-model="file.upload" name="myfile" 
+		        		  	style="display: none;"></label>
+					     	<br><br>
+		      				<button class="btn-primary" > uplaod </button>
+		               </form>
+				  </div>
+				  <div class="table-responsive" >
+					<ul class="nav nav-tabs" ng-init="tab = 1">
+						<li ng-class="{active:tab===1}"> 
+							<a href ng-click="tab = 1">info generale</a>	
+						</li>
+						<li ng-class="{active:tab===2}"> 
+							<a href ng-click="tab = 2">ajouter des info </a> 
+						</li>
+						<br>
+						<br>
+						<table  class="table table-striped" ng-show="tab===1">
+							<thead>
+							<tr>
+							    <td>name</td>
+								<td>username</td>
+								<td>email</td>
+								<td>&nbsp;</td>
+							</tr>
+							</thead>
+						<tbody>
+						<tr ng-show="id" >
+							    <td><input class="form-control" type="text" ng-model="name" required="true"></td>
+							    <td><input class="form-control"  type="text" ng-model="username" required="true"></td>
+					              <td>
+					         <input class="form-control"  type="email" ng-model="email" required="true"></td>
+					    <td><button type="button" class="btn btn-primary" ng-click="update(infoProfil.id)">upDate</button></td>
+						</tr>
+							<tr ng-hide="id">
+							<td>{{infoProfil.name}}</td>
+							<td>{{infoProfil.username}}</td>
+							<td>{{infoProfil.email}}</td>
+							
+							<td><button type="button" class="btn btn-primary" ng-click="edit(infoProfil._id)">Modifier</button></td>
+							</tr>
+						</tbody>
+				</table>
+						<table  class="table table-striped" ng-show="tab===2">
+					<thead>
+						<tr>
+							<td>date de naissance</td>
+							<td>profession</td>
+							<td>sex</td>
+							<td>&nbsp;</td>
+						</tr>
+					</thead>
+					<tbody>
+							<tr>
+						    <td><input class="form-control" type="date" ng-model="User.date" required="true"></td>
+						    <td><input class="form-control"  type="text" ng-model="User.username" required="true"></td>
+						    <td>
+						    <select class="form-control" name="sex">
+						    <option>male</option>
+						    <option>female</option>
+						    </select>
+						    </td>
+						    <td><button type="button" class="btn btn-primary" ng-click="update(currentUser.id)">add</button></td>
+							</tr>
+					</tbody>
+					</table>	
+					</ul>		
+			</div>
+		
+ 					<div class="col-sm-8" style="margin-top: 10px">
+                       <div ng-repeat="poste in allPoste track by $index">
+	                     	<div class="panel panel-white post panel-shadow">
+							  <div class="post-heading" >
+									<div class="navbar-right">
+										<ul class="nav navbar-nav">
+											<li class="dropdown">
+												<a class="dropdown-toggle" data-toggle="dropdown">
+													<span class="caret"></span>
+												</a>
+												<ul class="dropdown-menu">
+													<li><a href ng-click="remove(poste._id)">Supprimer</a></li>
+													<li><a href ng-click="Modifier(poste._id)">Modifier</a></li>
+												 </ul>
+											 </li>
+										</ul>
+									</div>
+									<div class="pull-left image">
+									 	<img ng-src="/uploads/{{poste.idUser._id}}/{{poste.idUser.photo}}" width="150px" height="150px" class="img-circle avatar" alt="user profile image">
+									</div> 
+									 <div class="pull-left meta">
+										  <div class="title h5">
+											  <a href="#">
+											  <b>By {{poste.idUser.name}}</b>
+											  </a>
+											  <br>{{poste.name}}.
+										 </div>
+									      <h6 class="text-muted time">{{poste.date}}</h6>
+									</div>
+							 </div>
+							<div class="post-description">
+								<p>{{poste.description}}</p>
+								 <div class="stat">
+									  <a href="#" class="btn btn-default stat-item">
+									 	<i class="glyphicon glyphicon-comment"></i>{{poste.commmentaire.length}} comment.
+									</a>
+									 <a href="#" class="btn btn-default stat-item">
+										<i class="fa fa-share icon"></i>2
+									</a>
+							    </div>
+							</div>
+
+							<div class="post-footer" >
+					         	  <div class="input-group" >
+						         	  <input class="form-control" placeholder="add a comment" type="text" ng-model="newComment">
+						         	  <span class="input-group-addon">
+						         	  <a href ng-click="addComm(poste._id)"><i class="glyphicon glyphicon-share-alt"></i></a>
+						         	  </span>
+					         	  </div >
+					         	  <div ng-repeat="p in poste.commmentaire track by $index">
+								         	  <ul class="comments-list">
+									         	  <li class="comment">
+											         	  <a class="pull-left" href="">
+									<img ng-src="/uploads/{{p.idUserCom._id}}/{{p.idUserCom.photo}}" class="avatar" alt="avatar">
+											         	  </a>
+											         	  <div class="comment-body">
+											         	      <div class="navbar-right">
+							         	      	
+												         	      	<ul class="nav navbar-nav">
+																        <li class="dropdown">
+																          <a class="dropdown-toggle" data-toggle="dropdown">
+																          <span class="caret"></span></a>
+																          <ul class="dropdown-menu">
+																            <li><a href ng-click="removeCom(poste._id, p._id)">Supprimer</a></li>
+																            <li><a href ng-click="ModifierCom(p._id)">Modifier</a></li>
+																          </ul>
+																          </li>
+																          </ul>
+							         	                       </div>
+												         	  <div class="comment-heading">
+														         	  <h4 class="user">{{p.idUserCom.username}}</h4>
+														         	  <h5 class="time">{{p.date}} </h5>
+												         	  </div>
+
+											         	 		 <p>{{p.contexte}}</p>
+												         	 
+											         	  </div>
+											         	   
+									         	  </li>
+								         	  </ul>
+					         	  </div>
+			         	    </div>
+			         	 </div>
+                     </div>
+
+
+	         	   </div>
+</div>  
+
+
+ <style type="text/css">
+  	
+  	.panel-shadow{
+	box-shadow:rgba(0,0,0,0.3)7px 7px 7px;
+}
+.panel-white{
+	border:1px solid#dddddd;
+}
+.panel-white .panel-heading{
+	color: #333;
+	background: #fff;
+	border-color: #ddd;
+}
+.panel-white .panel-footer{
+	background-color: #fff;
+	border-color: #ddd;
+}
+.post .post-heading{
+	height: 95px;
+	padding: 20px 15px;
+}
+.post .post-heading .avatar{
+	width: 60px;
+	height: 60px;
+	display: block;
+	margin-right: 15px;
+}
+.post .post-heading .meta .title{
+	margin-bottom: 0;
+}
+
+.post .post-heading .meta .title a{
+	color: black;
+}
+.post .post-heading .meta .title a:hover{
+	color: black;
+}
+.post .post-heading .meta .time{
+	margin-top: 8px;
+	color: #999;
+}
+.post .post-image .image{
+   width: 100%;
+   height: auto;
+}
+.post .post-description{
+	padding: 15px;
+}
+.post .post-description p{
+	font-size: 14px;
+}
+.post .post-description .stats{
+	margin-top: 20px;
+}
+.post .post-description .stats .stat-item{
+	display: inline-block;
+	margin-right: 15px;
+}
+.post .post-description .stats .stat-item .icon{
+	margin-right: 8px;
+}
+.post .post-footer{
+	border-top: 1px solid #ddd;
+	padding: 15px;
+}
+.post .post-footer .input-group-addon a{
+	color: #454545;
+}
+.post .post-footer .comments-list{
+	padding: 0;
+	margin-top: 20px;
+	list-style-type: none;
+}
+.post .post-footer .comments-list .comment{
+	display: block;
+	width: 100%;
+	margin-right: 20px 0;
+}
+.post .post-footer .comments-list .comment .avatar{
+	width: 35px;
+	height: 35px;
+}
+.post .post-footer .comments-list .comment .comment-heading{
+	display: block;
+	width: 100%;
+}
+.post .post-footer .comments-list .comment .comment-heading .user{
+	font-size: 14px;
+	font-weight: bold;
+	display: inline;
+	margin-top: 0;
+	margin-right: 10px;
+}
+.post .post-footer .comments-list .comment .comment-heading .time{
+	font-size: 12px;
+	color: #aaa;
+	margin-top: 0;
+	display: inline;
+}
+.post .post-footer .comments-list .comment .comment-body{
+	margin-left: 50px
+}
+.post .post-footer .comments-list.comment > .comment-list{
+	margin-left: 50px
+}
+</style>
